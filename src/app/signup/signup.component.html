@@ -1,0 +1,18 @@
+<div class="login">
+    <h1 style="text-align: center;color:red">SignUp</h1>
+    <form class="ui form" [formGroup]="form" (ngSubmit)="signup()">
+        <div class="field">
+            <label>Email</label>
+            <input type="text" formControlName="name" placeholder="First Name">
+          </div>
+        <div class="field">
+          <label>Email</label>
+          <input type="email" formControlName="email" placeholder="Email">
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="password" formControlName="password" placeholder="Password">
+        </div>
+        <button class="ui button" type="submit" [disabled]="!form.valid">Login</button>
+    </form>
+</div>

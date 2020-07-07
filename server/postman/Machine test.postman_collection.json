@@ -1,0 +1,166 @@
+{
+	"info": {
+		"_postman_id": "598f7aae-14ec-4edf-bee9-f9cb16e9a53c",
+		"name": "Machine test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"James Bond\",\r\n    \"email\": \"james@bond.com\",\r\n    \"password\": \"Jamesbond@123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/auth/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "01d401a9-b847-4a96-8266-4e804e8e6a05",
+						"exec": [
+							"var token = JSON.parse(pm.response.text()).token;\r",
+							"var userId = JSON.parse(pm.response.text()).userId;\r",
+							"\r",
+							"pm.environment.set(\"JWT_TOKEN\", token);\r",
+							"pm.environment.set(\"USER_ID\", userId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"adam@roach.com\",\r\n    \"password\": \"Adamroach@123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all user details",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{JWT_TOKEN}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/user/5f040a77084a093228f7d7e3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"5f040a77084a093228f7d7e3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user login details",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{JWT_TOKEN}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/user/login/5f040a77084a093228f7d7e3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"login",
+						"5f040a77084a093228f7d7e3"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "04f90932-b574-4a27-86a7-32791c2f5470",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "b9502120-f3f4-4786-9e7a-2965a8676af9",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "70935f59-efca-4508-a98c-fdd086836bd1",
+			"key": "JWT_TOKEN",
+			"value": ""
+		}
+	],
+	"protocolProfileBehavior": {}
+}
